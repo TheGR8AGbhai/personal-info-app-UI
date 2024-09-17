@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information Form</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+    <div style="max-width: 800px; margin: 50px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h1 style="text-align: center; color: #333; margin-bottom: 20px; font-size: 24px; font-weight: 600;">Personal Information Form</h1>
+        <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+            <!-- First Name -->
+            <div style="margin-bottom: 20px;">
+                <label for="firstName" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">First Name <span style="color: #e74c3c;">*</span></label>
+                <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="firstName" formControlName="firstName">
+                <div *ngIf="personalInfoForm.get('firstName')?.invalid && (personalInfoForm.get('firstName')?.dirty || personalInfoForm.get('firstName')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('firstName')?.errors?.['required']">First Name is required.</div>
+                </div>
+            </div>
+
+            <!-- Middle Name (Optional) -->
+            <div style="margin-bottom: 20px;">
+                <label for="middleName" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">Middle Name (optional)</label>
+                <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="middleName" formControlName="middleName">
+            </div>
+
+            <!-- Last Name -->
+            <div style="margin-bottom: 20px;">
+                <label for="lastName" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">Last Name <span style="color: #e74c3c;">*</span></label>
+                <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="lastName" formControlName="lastName">
+                <div *ngIf="personalInfoForm.get('lastName')?.invalid && (personalInfoForm.get('lastName')?.dirty || personalInfoForm.get('lastName')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('lastName')?.errors?.['required']">Last Name is required.</div>
+                </div>
+            </div>
+
+            <!-- ID Type -->
+            <div style="margin-bottom: 20px;">
+                <label for="idType" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">Government ID Type <span style="color: #e74c3c;">*</span></label>
+                <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="idType" formControlName="idType">
+                    <option value="">Select ID Type</option>
+                    <option value="Aadhaar">Aadhaar</option>
+                    <option value="PAN">PAN</option>
+                    <option value="Driving Licence">Driving Licence</option>
+                </select>
+                <div *ngIf="personalInfoForm.get('idType')?.invalid && (personalInfoForm.get('idType')?.dirty || personalInfoForm.get('idType')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('idType')?.errors?.['required']">ID Type is required.</div>
+                </div>
+            </div>
+
+            <!-- ID Number -->
+            <div style="margin-bottom: 20px;">
+                <label for="idNumber" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">ID Number <span style="color: #e74c3c;">*</span></label>
+                <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="idNumber" formControlName="idNumber">
+                <div *ngIf="personalInfoForm.get('idNumber')?.invalid && (personalInfoForm.get('idNumber')?.dirty || personalInfoForm.get('idNumber')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('idNumber')?.errors?.['required']">ID Number is required.</div>
+                    <div *ngIf="personalInfoForm.get('idNumber')?.errors?.['invalidAadhaar']">Aadhaar ID must be exactly 12 digits.</div>
+                    <div *ngIf="personalInfoForm.get('idNumber')?.errors?.['invalidPAN']">PAN ID must be exactly 10 alphanumeric characters.</div>
+                    <div *ngIf="personalInfoForm.get('idNumber')?.errors?.['invalidDL']">Driving Licence ID must be exactly 15 characters (letters, numbers, or dashes).</div>
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div style="margin-bottom: 20px;">
+                <label for="gender" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">Gender <span style="color: #e74c3c;">*</span></label>
+                <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="gender" formControlName="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div *ngIf="personalInfoForm.get('gender')?.invalid && (personalInfoForm.get('gender')?.dirty || personalInfoForm.get('gender')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('gender')?.errors?.['required']">Gender is required.</div>
+                </div>
+            </div>
+
+            <!-- Marital Status -->
+            <div style="margin-bottom: 20px;">
+                <label for="maritalStatus" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">Marital Status <span style="color: #e74c3c;">*</span></label>
+                <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="maritalStatus" formControlName="maritalStatus">
+                    <option value="">Select Marital Status</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                </select>
+                <div *ngIf="personalInfoForm.get('maritalStatus')?.invalid && (personalInfoForm.get('maritalStatus')?.dirty || personalInfoForm.get('maritalStatus')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('maritalStatus')?.errors?.['required']">Marital Status is required.</div>
+                </div>
+            </div>
+
+            <!-- Date of Birth -->
+            <div style="margin-bottom: 20px;">
+                <label for="dateOfBirth" style="display: block; font-weight: 500; color: #555; margin-bottom: 5px;">Date of Birth <span style="color: #e74c3c;">*</span></label>
+                <input type="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;" id="dateOfBirth" formControlName="dateOfBirth">
+                <div *ngIf="personalInfoForm.get('dateOfBirth')?.invalid && (personalInfoForm.get('dateOfBirth')?.dirty || personalInfoForm.get('dateOfBirth')?.touched)" style="color: #e74c3c; font-size: 14px; margin-top: 5px;">
+                    <div *ngIf="personalInfoForm.get('dateOfBirth')?.errors?.['required']">Date of Birth is required.</div>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit" style="padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; color: #fff; background-color: #007bff; text-align: center;">Submit</button>
+                <button type="reset" style="padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; color: #fff; background-color: #6c757d; text-align: center;" (click)="onReset()">Reset</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
